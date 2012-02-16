@@ -1,0 +1,7 @@
+C:\Users\jeff\documents\visual studio 2010\Projects\SMiLe\testLearner\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\jeff\documents\visual studio 2010\Projects\SMiLe\testLearner\bin\Debug\testLearner.exe
+C:\Users\jeff\documents\visual studio 2010\Projects\SMiLe\testLearner\bin\Debug\testLearner.pdb
+C:\Users\jeff\documents\visual studio 2010\Projects\SMiLe\testLearner\bin\Debug\SMiLe.dll
+C:\Users\jeff\documents\visual studio 2010\Projects\SMiLe\testLearner\bin\Debug\SMiLe.pdb
+C:\Users\jeff\documents\visual studio 2010\Projects\SMiLe\testLearner\obj\x86\Debug\testLearner.exe
+C:\Users\jeff\documents\visual studio 2010\Projects\SMiLe\testLearner\obj\x86\Debug\testLearner.pdb

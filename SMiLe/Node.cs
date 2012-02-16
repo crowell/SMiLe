@@ -56,7 +56,7 @@ namespace SMiLe
         }
         public double f(double sigma)
         {
-            return (1 / 1 + Math.Exp(-1 * sigma));
+            return (1 / (1 + Math.Exp(-1 * sigma)));
         }
         public int getPos()
         {

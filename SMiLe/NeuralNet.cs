@@ -9,19 +9,19 @@ namespace SMiLe
     public class NeuralNet
     {
         private List<List<Node>> layers;
-        public NeuralNet(int[] layers)
+        public NeuralNet(int[] alayers)
         {
             //Construct a network of layers.Length layers with layers[ii] nodes in each layers
-            if (layers.Length < 2)
+            if (alayers.Length < 2)
             {
                 //die
                 return;
             }
-            this.layers = new List<List<Node>>(layers.Length);
-            for (int ii = 0; ii < layers.Length; ii++)
+            this.layers = new List<List<Node>>(alayers.Length);
+            for (int ii = 0; ii < alayers.Length; ii++)
             {
-                List<Node> layer = new List<Node>(layers[ii]);
-                for (int jj = 0; jj < layers[ii]; jj++)
+                List<Node> layer = new List<Node>(alayers[ii]);
+                for (int jj = 0; jj < alayers[ii]; jj++)
                 {
                     layer.Add(new Node(ii,jj,false));
                 }
@@ -131,7 +131,7 @@ namespace SMiLe
             }
             for (int ii = 0; ii < this.layers.Count; ii++)
             {
-                for (int jj = 0; jj < this.layers[ii].Count; ii++)
+                for (int jj = 0; jj < this.layers[ii].Count; jj++)
                 {
                     List<Connection> outputConnections = this.layers[ii][jj].getAllOutputConnections();
                     foreach (Connection cn in outputConnections)
@@ -159,7 +159,7 @@ namespace SMiLe
             for (int ii = 0; ii < this.layers[0].Count; ii++)
             {
                 this.layers[0][ii].setInput(input[ii]);
-                this.layers[0][ii].setOutput(input[ii]);
+                this.layers[0][ii].setOutput(input[ii]*this.layers[0][ii].f(input[ii]));
             }
         }
         private double[] getOutput()
@@ -201,7 +201,6 @@ namespace SMiLe
         }
         public double error(double[][] input, double[][] output)
         {
-            //get the sum of errors for the input output vectors
             double error = 0;
             for (int ii = 0; ii < input.Length; ii++)
             {

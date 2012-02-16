@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SMiLe</name>
+    </assembly>
+    <members>
+        <member name="M:SMiLe.NeuralNet.#ctor(System.Int32[])">
+            <summary>
+            Construct a new Neural Net with the given Layers
+            ex: int[] layers = { 2 , 2,  2 };  SMiLe.NeuralNet net = new NeuralNet(layers);
+            </summary>
+            <param name="layers">the structure an array of layers with the number of nodes in each layer</param>
+        </member>
+        <member name="M:SMiLe.NeuralNet.#ctor">
+            <summary>
+            Construct a new neural net, to be used with the LOAD member
+            ex: NeuralNet nn = new NeuralNet().LOAD("neural.net");
+            </summary>
+        </member>
+        <member name="M:SMiLe.NeuralNet.SAVE(System.String,SMiLe.NeuralNet)">
+            <summary>
+            SAVES the neural net to a file
+            ex: nn.SAVE("neural.net", nn);
+            </summary>
+            <param name="filename">filename, where the neural net is saved</param>
+            <param name="nn">the neural net to save</param>
+        </member>
+        <member name="M:SMiLe.NeuralNet.LOAD(System.String)">
+            <summary>
+            LOADs a neural net from file filename
+            ex: NeuralNet nn2 = nn1.LOAD("neural.net");
+            </summary>
+            <param name="filename">the filename of the neural net to load</param>
+            <returns>the neural net which is loaded</returns>
+        </member>
+        <member name="M:SMiLe.NeuralNet.train(System.Double[][],System.Double[][],System.Double)">
+            <summary>
+            pass a training set of input, output, and learning rate
+            trains each set of input with output, updating the connections and weights
+            </summary>
+            <param name="input">array of input training sets</param>
+            <param name="output">array ouf output training sets</param>
+            <param name="r">the learning rate</param>
+        </member>
+        <member name="M:SMiLe.NeuralNet.evaluate(System.Double[])">
+            <summary>
+            retrieves the guess of output based on an input data
+            from the trained neural net
+            </summary>
+            <param name="input">array of input data to the neural net</param>
+            <returns>the neural net's best guess of the output based on its training</returns>
+        </member>
+        <member name="M:SMiLe.NeuralNet.errorrate(System.Double[][],System.Double[][])">
+            <summary>
+            gets the error rate of the neural net for a testing set
+            </summary>
+            <param name="input">testing data sets input</param>
+            <param name="output">testing data sets output</param>
+            <returns>error rate between 0 and 1 of the net</returns>
+        </member>
+        <member name="M:SMiLe.NeuralNet.error(System.Double[][],System.Double[][])">
+            <summary>
+            gets the error of a neural net with testing input
+            </summary>
+            <param name="input">testing input data sets</param>
+            <param name="output">testing output data sets</param>
+            <returns>sum of squares error of the network</returns>
+        </member>
+    </members>
+</doc>

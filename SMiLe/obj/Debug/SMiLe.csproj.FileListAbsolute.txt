@@ -3,3 +3,4 @@ C:\Users\jeff\documents\visual studio 2010\Projects\SMiLe\SMiLe\bin\Debug\SMiLe.
 C:\Users\jeff\documents\visual studio 2010\Projects\SMiLe\SMiLe\bin\Debug\SMiLe.pdb
 C:\Users\jeff\documents\visual studio 2010\Projects\SMiLe\SMiLe\obj\Debug\SMiLe.dll
 C:\Users\jeff\documents\visual studio 2010\Projects\SMiLe\SMiLe\obj\Debug\SMiLe.pdb
+C:\Users\jeff\documents\visual studio 2010\Projects\SMiLe\SMiLe\bin\Debug\SMiLe.XML

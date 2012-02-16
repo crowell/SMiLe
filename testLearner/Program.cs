@@ -12,7 +12,6 @@ namespace testLearner
         {
             int[] layers = { 2 , 2,  2 };
             SMiLe.NeuralNet net = new NeuralNet(layers);
-            net.connectAll();
             double[][] inputvs2 = new double[4][];
             inputvs2[0] =new double[]  { 0, 0 };
             inputvs2[1] = new double[]{ 0, 1 };
@@ -53,6 +52,7 @@ namespace testLearner
 
             NeuralNet net2 = new NeuralNet(layers);
             net2 = net2.LOAD("neural.net");
+            NeuralNet net34 = new NeuralNet().LOAD("neural.net");
             output = net2.evaluate(testme);
 
             //System.Console.WriteLine(net.error(testing, testout));

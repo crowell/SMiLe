@@ -13,29 +13,49 @@ namespace SMiLe
     public class NeuralNet
     {
         private List<List<Node>> layers;
-        public NeuralNet(int[] alayers)
+
+
+        /// <summary>
+        /// Construct a new Neural Net with the given Layers
+        /// ex: int[] layers = { 2 , 2,  2 };  SMiLe.NeuralNet net = new NeuralNet(layers);
+        /// </summary>
+        /// <param name="layers">the structure an array of layers with the number of nodes in each layer</param>
+        public NeuralNet(int[] layers)
         {
             //Construct a network of layers.Length layers with layers[ii] nodes in each layers
-            if (alayers.Length < 2)
+            if (layers.Length < 2)
             {
                 //die
                 return;
             }
-            this.layers = new List<List<Node>>(alayers.Length);
-            for (int ii = 0; ii < alayers.Length; ii++)
+            this.layers = new List<List<Node>>(layers.Length);
+            for (int ii = 0; ii < layers.Length; ii++)
             {
-                List<Node> layer = new List<Node>(alayers[ii]);
-                for (int jj = 0; jj < alayers[ii]; jj++)
+                List<Node> layer = new List<Node>(layers[ii]);
+                for (int jj = 0; jj < layers[ii]; jj++)
                 {
                     layer.Add(new Node(ii,jj,false));
                 }
                 this.layers.Add(layer);
             }
+            this.connectAll();
         }
+
+        /// <summary>
+        /// Construct a new neural net, to be used with the LOAD member
+        /// ex: NeuralNet nn = new NeuralNet().LOAD("neural.net");
+        /// </summary>
         public NeuralNet()
         {
-            ;
+            ;//do nothing, this is only for loading
         }
+
+        /// <summary>
+        /// SAVES the neural net to a file
+        /// ex: nn.SAVE("neural.net", nn);
+        /// </summary>
+        /// <param name="filename">filename, where the neural net is saved</param>
+        /// <param name="nn">the neural net to save</param>
         public void SAVE(string filename, NeuralNet nn)
         {
             Stream stream = File.Open(filename, FileMode.Create);
@@ -43,6 +63,12 @@ namespace SMiLe
             bFormatter.Serialize(stream, nn);
             stream.Close();
         }
+        /// <summary>
+        /// LOADs a neural net from file filename
+        /// ex: NeuralNet nn2 = nn1.LOAD("neural.net");
+        /// </summary>
+        /// <param name="filename">the filename of the neural net to load</param>
+        /// <returns>the neural net which is loaded</returns>
         public NeuralNet LOAD(string filename)
         {
             NeuralNet objectToSerialize;
@@ -90,7 +116,7 @@ namespace SMiLe
             thresh.addOutputConnection(cn);
             node.addInputConnection(cn);
         }
-        public void connectAll()
+        private void connectAll()
         {
             //connect all of the nodes from the previous layer to the current layer
             Random random = new Random();
@@ -114,6 +140,14 @@ namespace SMiLe
                 }
             }
         }
+
+        /// <summary>
+        /// pass a training set of input, output, and learning rate
+        /// trains each set of input with output, updating the connections and weights
+        /// </summary>
+        /// <param name="input">array of input training sets</param>
+        /// <param name="output">array ouf output training sets</param>
+        /// <param name="r">the learning rate</param>
         public void train(double[][] input, double[][] output, double r)
         {
             for (int ii = 0; ii < input.Length; ii++)
@@ -219,6 +253,12 @@ namespace SMiLe
             }
             return outputs;
         }
+        /// <summary>
+        /// retrieves the guess of output based on an input data
+        /// from the trained neural net
+        /// </summary>
+        /// <param name="input">array of input data to the neural net</param>
+        /// <returns>the neural net's best guess of the output based on its training</returns>
         public double[] evaluate(double[] input)
         {
             //set input then get output
@@ -226,6 +266,12 @@ namespace SMiLe
             double[] output = getOutput();
             return output;
         }
+        /// <summary>
+        /// gets the error rate of the neural net for a testing set
+        /// </summary>
+        /// <param name="input">testing data sets input</param>
+        /// <param name="output">testing data sets output</param>
+        /// <returns>error rate between 0 and 1 of the net</returns>
         public double errorrate(double[][] input, double[][] output)
         {
             double accuracy = 0;
@@ -253,7 +299,12 @@ namespace SMiLe
             double rate = accuracy / input.Length;
             return rate;
         }
-        
+        /// <summary>
+        /// gets the error of a neural net with testing input
+        /// </summary>
+        /// <param name="input">testing input data sets</param>
+        /// <param name="output">testing output data sets</param>
+        /// <returns>sum of squares error of the network</returns>
         public double error(double[][] input, double[][] output)
         {
             double error = 0;

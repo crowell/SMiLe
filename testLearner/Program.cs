@@ -49,6 +49,12 @@ namespace testLearner
             output = net.evaluate(testme);
             double rate = net.errorrate(inputvs2, outputvs2);
 
+            net.SAVE("neural.net", net);
+
+            NeuralNet net2 = new NeuralNet(layers);
+            net2 = net2.LOAD("neural.net");
+            output = net2.evaluate(testme);
+
             //System.Console.WriteLine(net.error(testing, testout));
 
         }

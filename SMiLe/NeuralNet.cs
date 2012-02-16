@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace SMiLe
 {
@@ -28,6 +32,28 @@ namespace SMiLe
                 this.layers.Add(layer);
             }
         }
+        public NeuralNet()
+        {
+            ;
+        }
+        public void SAVE(string filename, NeuralNet nn)
+        {
+            Stream stream = File.Open(filename, FileMode.Create);
+            BinaryFormatter bFormatter = new BinaryFormatter();
+            bFormatter.Serialize(stream, nn);
+            stream.Close();
+        }
+        public NeuralNet LOAD(string filename)
+        {
+            NeuralNet objectToSerialize;
+            Stream stream = File.Open(filename, FileMode.Open);
+            BinaryFormatter bFormatter = new BinaryFormatter();
+            objectToSerialize = (NeuralNet)bFormatter.Deserialize(stream);
+            stream.Close();
+            return objectToSerialize;
+        }
+        
+        
         private void addConnection(int fromLayer, int fromPos, int toLayer, int toPos, double weight)
         {
             //Connect node to node

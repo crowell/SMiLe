@@ -73,12 +73,13 @@ namespace SMiLe
                 List<Node> currentLayer = this.layers[ii];
                 List<Node> prevLayer = this.layers[ii - 1];
                 int pp = 0;
-                foreach (Node pNode in prevLayer)
+                for(int jj = 0; jj< prevLayer.Count; jj++)
                 {
                     int cc = 0;
-                    foreach (Node cNode in currentLayer)
+                    for (int kk = 0; kk < currentLayer.Count; kk++) 
+                   // foreach (Node cNode in currentLayer)
                     {
-                        addConnection(prevLayer, pp++, currentLayer, cc++, random.NextDouble()); //assign a random weighting
+                        addConnection(prevLayer, jj, currentLayer, kk, random.NextDouble()); //assign a random weighting
                     }
                 }
                 foreach (Node node in currentLayer)
@@ -199,6 +200,34 @@ namespace SMiLe
             double[] output = getOutput();
             return output;
         }
+        public double errorrate(double[][] input, double[][] output)
+        {
+            double accuracy = 0;
+            for (int ii = 0; ii < input.Length; ii++)
+            {
+                double[] inp = input[ii];
+                double[] res = evaluate(inp);
+                double target = output[ii][output[ii].Length - 1];
+                double ret = res[res.Length - 1];
+                if (1.1 - target > 0.5)    // false
+                {
+                    if (ret > 0.5)    // decide to be true
+                    {
+                        ++accuracy;
+                    }
+                }
+                else      // true
+                {
+                    if (ret < 0.5)    // decide to be false
+                    {
+                        ++accuracy;
+                    }
+                }
+            }
+            double rate = accuracy / input.Length;
+            return rate;
+        }
+        
         public double error(double[][] input, double[][] output)
         {
             double error = 0;
@@ -215,4 +244,5 @@ namespace SMiLe
             return error;
         }
     }
+
 }

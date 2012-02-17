@@ -5,3 +5,4 @@ C:\Users\jeff\documents\visual studio 2010\Projects\SMiLe\testLearner\bin\Debug\
 C:\Users\jeff\documents\visual studio 2010\Projects\SMiLe\testLearner\bin\Debug\SMiLe.pdb
 C:\Users\jeff\documents\visual studio 2010\Projects\SMiLe\testLearner\obj\x86\Debug\testLearner.exe
 C:\Users\jeff\documents\visual studio 2010\Projects\SMiLe\testLearner\obj\x86\Debug\testLearner.pdb
+C:\Users\jeff\documents\visual studio 2010\Projects\SMiLe\testLearner\bin\Debug\SMiLe.xml

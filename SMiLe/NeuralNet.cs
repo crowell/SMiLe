@@ -124,10 +124,8 @@ namespace SMiLe
             {
                 List<Node> currentLayer = this.layers[ii];
                 List<Node> prevLayer = this.layers[ii - 1];
-                int pp = 0;
                 for(int jj = 0; jj< prevLayer.Count; jj++)
                 {
-                    int cc = 0;
                     for (int kk = 0; kk < currentLayer.Count; kk++) 
                    // foreach (Node cNode in currentLayer)
                     {
@@ -148,14 +146,14 @@ namespace SMiLe
         /// <param name="input">array of input training sets</param>
         /// <param name="output">array ouf output training sets</param>
         /// <param name="r">the learning rate</param>
-        public void train(double[][] input, double[][] output, double r)
+        public void train(List<List<double> > input, List<List<double> > output, double r)
         {
-            for (int ii = 0; ii < input.Length; ii++)
+            for (int ii = 0; ii < input.Count; ii++)
             {
                 trainDS(input[ii], output[ii], r); //train 
             }
         }
-        private void trainDS(double[] input, double[] output, double r)
+        private void trainDS(List<double> input, List<double> output, double r)
         {
             //back propagate, then reset new values for weighting
             double target; //actual target output from training data
@@ -215,7 +213,7 @@ namespace SMiLe
         {
             return r * oj * oi * (1 - oj) * Bj;
         }
-        private void setInput(double[] input)
+        private void setInput(List<double> input)
         {
             for (int ii = 0; ii < this.layers[0].Count; ii++)
             {
@@ -223,7 +221,7 @@ namespace SMiLe
                 this.layers[0][ii].setOutput(input[ii]*this.layers[0][ii].f(input[ii]));
             }
         }
-        private double[] getOutput()
+        private List<double> getOutput()
         {
             //propagate the output through
             int end = this.layers.Count - 1;
@@ -251,7 +249,7 @@ namespace SMiLe
             {
                 outputs[ii] = this.layers[end][ii].getOutput();
             }
-            return outputs;
+            return outputs.ToList();
         }
         /// <summary>
         /// retrieves the guess of output based on an input data
@@ -259,11 +257,11 @@ namespace SMiLe
         /// </summary>
         /// <param name="input">array of input data to the neural net</param>
         /// <returns>the neural net's best guess of the output based on its training</returns>
-        public double[] evaluate(double[] input)
+        public List<double> evaluate(List<double> input)
         {
             //set input then get output
             setInput(input);
-            double[] output = getOutput();
+            List<double> output = getOutput();
             return output;
         }
         /// <summary>
@@ -272,15 +270,15 @@ namespace SMiLe
         /// <param name="input">testing data sets input</param>
         /// <param name="output">testing data sets output</param>
         /// <returns>error rate between 0 and 1 of the net</returns>
-        public double errorrate(double[][] input, double[][] output)
+        public double errorrate(List<List<double>> input, List<List<double>> output)
         {
             double accuracy = 0;
-            for (int ii = 0; ii < input.Length; ii++)
+            for (int ii = 0; ii < input.Count; ii++)
             {
-                double[] inp = input[ii];
-                double[] res = evaluate(inp);
-                double target = output[ii][output[ii].Length - 1];
-                double ret = res[res.Length - 1];
+                List<double> inp = input[ii];
+                List<double> res = evaluate(inp);
+                double target = output[ii][output[ii].Count - 1];
+                double ret = res[res.Count - 1];
                 if (1.1 - target > 0.5)    // false
                 {
                     if (ret > 0.5)    // decide to be true
@@ -296,7 +294,7 @@ namespace SMiLe
                     }
                 }
             }
-            double rate = accuracy / input.Length;
+            double rate = accuracy / input.Count;
             return rate;
         }
         /// <summary>
@@ -305,18 +303,18 @@ namespace SMiLe
         /// <param name="input">testing input data sets</param>
         /// <param name="output">testing output data sets</param>
         /// <returns>sum of squares error of the network</returns>
-        public double error(double[][] input, double[][] output)
+        public double error(List<List<double> > input, List<List<double> > output)
         {
             double error = 0;
-            for (int ii = 0; ii < input.Length; ii++)
+            for (int ii = 0; ii < input.Count; ii++)
             {
-                double[] results = evaluate(input[ii]);
-                for (int jj = 0; jj < results.Length; jj++)
+                List<double> results = evaluate(input[ii]);
+                for (int jj = 0; jj < results.Count; jj++)
                 {
                     error += ((results[jj] - output[ii][jj]) * (results[jj] - output[ii][jj]));
                 }
             }
-            error /= input.Length;
+            error /= input.Count;
             error = Math.Pow(error, 0.5);
             return error;
         }
